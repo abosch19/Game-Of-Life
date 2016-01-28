@@ -12,3 +12,29 @@ body {
 canvas {
   border: 1px solid black;
 }
+
+.player {
+  background-color: rgb(122, 139, 137);
+  padding: 5px;
+  border-radius:2px;
+}
+
+.player button {
+  border: 0;
+  color: white;
+  background-color: transparent;
+  margin-right: 10px;
+}
+
+.player button:hover {
+  cursor: pointer;
+}
+
+.player button:active {
+  background-color: white;
+  color: rgb(122, 139, 137);
+}
+
+.player-start-symbol {
+  margin-left: 7px;
+}

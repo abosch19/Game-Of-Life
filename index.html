@@ -9,8 +9,10 @@
 <body>
   <div class="grid-container">
     <canvas id="gameOfLife" width="400px" height="400px">Tu navegador no soporta canvas de HTML5</canvas>
-    <button id="start_stop">Start</button>
-    <button id="restart">Restart</button>
+    <div class="player">
+      <button id="start_stop" class="player-start">Start<span class="player-start-symbol">&#9658;</span></button>
+      <button id="restart" class="player-restart">Restart <span class="player-restart-symbol">&#9724;</span></button>
+    </div>
   </div>
   <script type="text/javascript" src="gameoflife.js"></script>
 </body>
