@@ -13,13 +13,18 @@ var Y_MIN = 0;
 var MATRXI_LENGTH = 20;
 
 var matrix = [];
-var button = document.getElementById('start_stop');
+var start = document.getElementById('start_stop');
+var restart = document.getElementById('restart');
 
 /*
  *Adding eventsListener
  */
-button.addEventListener('click', buttonOnClick);
+start.addEventListener('click', buttonOnClick);
 canvas.addEventListener('click', canvasOnClick);
+restart.addEventListener('click',function () {
+  initMatrix();
+  initCanvas();
+});
 
 /*
  * Init
@@ -33,7 +38,8 @@ initCanvas();
  * Functions
  */
   function initCanvas () {
-
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(X_MIN,Y_MIN,X_MAX,Y_MAX);
     ctx.strokeStyle = '#d2d2d2';
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -52,13 +58,12 @@ initCanvas();
   }
 
   function initMatrix () {
-    var row = [];
     for(var i = 0; i < MATRXI_LENGTH; ++i) {
-      row.push(false);
-    }
-    for(var i = 0; i < MATRXI_LENGTH; ++i) {
-      matrix.push(row);
-    }
+      matrix[i] = new Array();
+      for(var j = 0; j < MATRXI_LENGTH; ++j) {
+        matrix[i][j] = false
+        }
+      }
   }
 
   function buttonOnClick (ev) {
@@ -79,22 +84,23 @@ initCanvas();
   function drawCanvas (x,y) {
     var margin = 1;
     ctx.beginPath();
-    //console.log(getCell(x,y));
     if(!getCell(x,y)) {
       ctx.fillStyle = '#888686';
       ctx.fillRect(x*CELL + margin,y*CELL + margin,CELL - 2*margin,CELL - 2*margin);
-      //setCell(x,y,true);
-      //matrix[y][x] = true;
+      setCell(x,y,true);
+
     } else {
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(x*CELL + margin,y*CELL + margin,CELL - 2*margin,CELL - 2*margin);
-      //setCell(x,y,false);
-      //matrix[y][x] = false;
+      setCell(x,y,false);
+
     }
     ctx.closePath();
+    console.log(matrix);
   }
 
   function getCell (x,y) {
+    console.log("X: " + x + "\nY: " + y + "\n" + matrix[y][x]);
     return matrix[y][x];
   }
 
