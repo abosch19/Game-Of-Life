@@ -1,25 +1,30 @@
 (function () {
+
 /*
  *CONSTANTS AND VARIABLES
  */
+
 var canvas = document.getElementById('gameOfLife');
 var ctx = canvas.getContext('2d');
 
-var CELL = 20;
+var MATRIX_LENGTH = 20;
+
 var X_MAX = canvas.width;
 var Y_MAX = canvas.height;
 var X_MIN = 0;
 var Y_MIN = 0;
-var MATRXI_LENGTH = 20;
+var CELL = X_MAX/MATRIX_LENGTH;
 
-var matrix = [];
+
+var matrix = new Array();
+var nextTurnCells = new Array();
 var start = document.getElementById('start_stop');
 var restart = document.getElementById('restart');
 
 /*
  *Adding eventsListener
  */
-start.addEventListener('click', buttonOnClick);
+//start.addEventListener('click', nextTurn);
 canvas.addEventListener('click', canvasOnClick);
 restart.addEventListener('click',function () {
   initMatrix();
@@ -58,16 +63,12 @@ initCanvas();
   }
 
   function initMatrix () {
-    for(var i = 0; i < MATRXI_LENGTH; ++i) {
+    for(var i = 0; i < MATRIX_LENGTH; ++i) {
       matrix[i] = new Array();
-      for(var j = 0; j < MATRXI_LENGTH; ++j) {
-        matrix[i][j] = false
+      for(var j = 0; j < MATRIX_LENGTH; ++j) {
+        matrix[i][j] = false;
         }
       }
-  }
-
-  function buttonOnClick (ev) {
-    console.log("Start");
   }
 
   function canvasOnClick (ev) {
@@ -78,11 +79,11 @@ initCanvas();
   }
 
   function xyConverter(x,y) {
-    return {'x': Math.floor(x/X_MAX*CELL),'y': Math.floor(y/Y_MAX*CELL)}
+    return {'x': Math.floor(x/X_MAX*MATRIX_LENGTH),'y': Math.floor(y/Y_MAX*MATRIX_LENGTH)}
   }
 
   function drawCanvas (x,y) {
-    var margin = 1;
+    var margin = ctx.lineWidth;
     ctx.beginPath();
     if(!getCell(x,y)) {
       ctx.fillStyle = '#888686';
@@ -96,15 +97,26 @@ initCanvas();
 
     }
     ctx.closePath();
-    console.log(matrix);
   }
 
   function getCell (x,y) {
-    console.log("X: " + x + "\nY: " + y + "\n" + matrix[y][x]);
     return matrix[y][x];
   }
 
   function setCell (x,y,condition) {
     matrix[y][x] = condition;
+  }
+
+  function nextTurn (ev) {
+    for(var y = 0; y < Y_MAX; ++y) {
+      for(var x = 0; x < X_MAX; ++x){
+        var neighbours = findNeighbours(x,y);
+        if(getCell(x,y)) {
+          alert(neighbours);
+        } else {
+
+        }
+      }
+    }
   }
 }())
